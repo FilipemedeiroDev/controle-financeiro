@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { addHours, isBefore } = require('date-fns');
+const nodemailer = require('../nodemailerConfig');
 
 const jwtSecret = require('../jwtSecret');
 

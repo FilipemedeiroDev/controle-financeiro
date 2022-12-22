@@ -9,6 +9,22 @@ const UserModel = require('../models/userModel');
 const UserToken = require('../models/userToken');
 
 class UsersController {
+  
+  async GetUser(req, res) {
+    const { id: userId } = req.user;
+
+    try {
+      const user = await UserModel.findOne({_id: userId});
+
+      if(!user) {
+        return res.status(404).json({message: 'Usuário não encontrado.'})
+      }
+
+      return res.status(200).json(user)
+    } catch (error) {
+      return res.status(500).json({ message:  error.message});
+    }
+  }
 
   async Create(req, res) {
     const { name, email, password } = req.body;
@@ -96,6 +112,37 @@ class UsersController {
     } catch (error) {
       return res.status(500).json({ message:  error.message});
     }
+  }
+
+  async Edit(req, res) {
+      const { id: userId } = req.user;
+      const { name, email, newPassword } = req.body;
+
+      if(!name) {
+        return res.status(400).json({message: 'Preencha o campo nome para continuar!'})
+      }
+
+      if(!email) {
+        return res.status(400).json({message: 'Preencha o campo e-mail para continuar!'})
+      }
+
+      try {
+        const updatedUser = {
+          name,
+          email
+        }
+        
+        if(newPassword) {
+          const encryptedPassword = await bcrypt.hash(newPassword, 10);
+          updatedUser.password = encryptedPassword
+        }
+
+        await UserModel.updateOne({_id: userId}, updatedUser)
+
+        return res.status(200).json({message: 'Usuário atualizado com sucesso!'})
+      } catch (error) {
+        return res.status(500).json({ message:  error.message});
+      }
   }
 
   async Forgot(req, res) {

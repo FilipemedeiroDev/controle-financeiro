@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as C from './styles'
+import { toast } from 'react-toastify';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
@@ -12,9 +13,9 @@ import api from '../../services/api';
 export default function SigUp() {
   const [showPassword, setShowPassword] = useState(false);
   const [form, setForm] = useState({
-    nome: '',
+    name: '',
     email: '',
-    senha: ''
+    password: ''
   })
 
   const navigate = useNavigate();
@@ -32,32 +33,32 @@ export default function SigUp() {
     e.preventDefault();
 
     try {
-      if(!form.nome) {
-        alert('Preencha o campo nome para continuar')
+      if(!form.name) {
+        toast.error('Preencha o campo nome para continuar')
         return
       }
 
       if(!form.email) {
-        alert('Preencha o campo e-mail para continuar')
+        toast.error('Preencha o campo e-mail para continuar')
         return
       }
 
-      if(!form.senha) {
-        alert('Preencha o campo senha para continuar')
+      if(!form.password) {
+        toast.error('Preencha o campo senha para continuar')
         return
       }
 
       await api.post('/users', {
-        name: form.nome.trim(),
+        name: form.name.trim(),
         email: form.email.trim(),
-        password: form.senha.trim()
+        password: form.password.trim()
       })
 
-      alert('Usuário cadastrado com sucesso!')
+      toast.success('Usuário cadastrado com sucesso!')
       navigate('/sign-in')
     } catch (error) {
       console.log(error)
-      alert(error.response.data.message)
+      toast.error(error.response.data.message)
       return
     }
   }
@@ -74,8 +75,8 @@ export default function SigUp() {
             <Input 
               type='text'
               placeholder='Digite seu nome'
-              name='nome'
-              value={form.nome}
+              name='name'
+              value={form.name}
               handle={handleChangeInput}
             />
           </C.ContentInput>
@@ -84,9 +85,9 @@ export default function SigUp() {
             <C.Label>E-mail</C.Label>
             <Input 
               type='email'
-              placeholder='Digite seu melhor email'
+              placeholder='Digite seu melhor e-mail'
               name='email'
-              value={form.value}
+              value={form.email}
               handle={handleChangeInput}
             />
           </C.ContentInput>
@@ -96,8 +97,8 @@ export default function SigUp() {
             <Input 
               type={showPassword ? 'text' : 'password'}
               placeholder='****'
-              name='senha'
-              value={form.senha}
+              name='password'
+              value={form.password}
               handle={handleChangeInput}
             />
             {

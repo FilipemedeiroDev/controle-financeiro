@@ -3,6 +3,7 @@ import Main from './pages/Main';
 import SigIn from './pages/SingIn';
 import SignUp from './pages/SignUp';
 import Forgot from './pages/Forgot';
+import Reset from './pages/Reset';
 
 import { getItem } from './utils/storage'
 
@@ -18,6 +19,7 @@ function MainRoutes() {
       <Route path='/sign-in' element={<SigIn />}/>
       <Route path='/sign-up' element={<SignUp />}/>
       <Route path='/forgot' element={<Forgot />} />
+      <Route path='/reset/:token' element={<Reset />} />
       
       <Route element={<PrivateRoutes redirectedto='/sign-in' />}>
         <Route path='/' element={<Main />}/>

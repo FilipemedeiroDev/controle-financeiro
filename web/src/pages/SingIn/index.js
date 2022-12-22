@@ -1,11 +1,12 @@
+import * as C from './styles';
 import { useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
-import * as C from './styles';
+import { toast } from 'react-toastify';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
-import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
+import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 
 import api from '../../services/api'
 import { setItem, getItem} from '../../utils/storage';
@@ -15,7 +16,7 @@ export default function SigIn() {
   const [showPassword, setShowPassword] = useState(false);
   const [form, setForm] = useState({
     email: '',
-    senha: ''
+    password: ''
   })
 
   useEffect(() => {
@@ -39,19 +40,19 @@ export default function SigIn() {
     e.preventDefault()
 
     if(!form.email) {
-      alert('Preencha o campo email para continuar')
+      toast.error('Preencha o campo email para continuar')
       return
     }
 
-    if(!form.senha) {
-      alert('Preencha o campo senha para continuar')
+    if(!form.password) {
+      toast.error('Preencha o campo senha para continuar')
       return
     }
 
     try {
       const response = await api.post('/users/login',{
         email: form.email.trim(),
-        password: form.senha.trim()
+        password: form.password.trim()
       })
 
       const { token, user } = response.data;
@@ -62,7 +63,7 @@ export default function SigIn() {
       navigate('/');
     } catch (error) {
       console.log(error)
-      alert(error.response.data.message)
+      toast.error(error.response.data.message)
       return
     }
   }
@@ -89,8 +90,8 @@ export default function SigIn() {
             <Input 
               type={showPassword ? 'text' : 'password'}
               placeholder='****'
-              name='senha'
-              value={form.senha}
+              name='password'
+              value={form.password}
               handle={handleChangeInput}
             />
             {

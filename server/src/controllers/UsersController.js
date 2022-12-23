@@ -14,7 +14,7 @@ class UsersController {
     const { id: userId } = req.user;
 
     try {
-      const user = await UserModel.findOne({_id: userId});
+      const user = await UserModel.findOne({_id: userId}, '-password');
 
       if(!user) {
         return res.status(404).json({message: 'Usuário não encontrado.'})

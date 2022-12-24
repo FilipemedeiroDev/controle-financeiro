@@ -10,7 +10,7 @@ import useMyContext from '../../Hooks/useMyContext';
 
 
 export default function Header() {
-  const { showModalEdit ,setShowModalEdit }  = useMyContext();
+  const { showModalEdit ,setShowModalEdit, user }  = useMyContext();
   const navigate = useNavigate();
 
   function handleLogout() {
@@ -22,13 +22,12 @@ export default function Header() {
     setShowModalEdit(true)
   }
 
-  console.log()
-
   return (
     <C.Header>
       <C.Title>Controle Financeiro</C.Title>
 
       <C.ContentIcons>
+        <C.Strong>Olá, {user.name}</C.Strong>
         <CgProfile 
           onClick={handleShowModal}
         />

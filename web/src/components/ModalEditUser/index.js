@@ -1,6 +1,7 @@
 import * as C from './styles';
 import { useState } from 'react';
 import useMyContext from '../../Hooks/useMyContext';
+import { toast } from 'react-toastify';
 
 import Input from '../Input';
 import Button from '../Button';
@@ -34,18 +35,24 @@ export default function ModalEditUser() {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    try {
-      
+    try { 
       if(form.newPassword) {
+        
+        if(form.newPassword.length < 6) {
+          toast.error('A senha deve ter no minimo 6 caracteres')
+          return
+        }
+        
         await api.put('/users', {
-          name: form.name,
-          email: form.email,
-          newPassword: form.newPassword
+          name: form.name.trim(),
+          email: form.email.trim(),
+          newPassword: form.newPassword.trim()
         })
+
       } else {
         await api.put('/users', {
-          name: form.name,
-          email: form.email,
+          name: form.name.trim(),
+          email: form.email.trim(),
         })
       }
       
@@ -89,6 +96,7 @@ export default function ModalEditUser() {
             handle={handleChangeInput}
           />
         </C.ContentInput>
+        <C.Title style={{marginBottom: '10px'}}>Redefinir senha</C.Title>
         <C.ContentInput>
           <C.Label>Nova senha</C.Label>
           <Input 

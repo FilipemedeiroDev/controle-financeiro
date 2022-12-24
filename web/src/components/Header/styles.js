@@ -12,16 +12,18 @@ export const Header = styled.header`
 
 export const Title = styled.h1`
   text-align: center;
-  margin-top: 40px;
+  margin-top: 60px;
   color: #ffff;
 
   @media (max-width: 750px) {
-    font-size: 20px
+    font-size: 20px;
+    margin-top: 90px;
   }
 `;
 
 export const ContentIcons = styled.div`
   display: flex;
+  align-items: center;
   gap: 12px;
   
   position: absolute;
@@ -40,5 +42,13 @@ export const ContentIcons = styled.div`
     svg {
       font-size: 24px;
     }
+
+    strong {
+      font-size: 12px;
+    }
   }
+`;
+
+export const Strong = styled.strong`
+  color: #ffffff
 `;

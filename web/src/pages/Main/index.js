@@ -1,21 +1,33 @@
 import * as C from './styles';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { getItem } from '../../utils/storage';
+import useMyContext from '../../Hooks/useMyContext';
 
 import Header from '../../components/Header';
 import Resume from '../../components/Resume';
-import useMyContext from '../../Hooks/useMyContext';
+import FormTransaction from '../../components/FormTransaction';
 
 function Main() {
   const { getUser } = useMyContext();
+  const navigate = useNavigate();
 
   useEffect(() => {
+    const token = getItem('token') 
+
+    if(!token) {
+      navigate('/sign-in')
+    }
+    
     getUser()
-  })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   
   return (
     <C.Container>
       <Header />
       <Resume />
+      <FormTransaction />
     </C.Container>
   );
 }

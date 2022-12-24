@@ -4,14 +4,11 @@ export const Cards = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
-
-  width: 20%;
-  padding: 1rem;
-
-  background-color: white;
-  border-radius: 8px;
-
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 5px 15px;
+  width: 40%;
+  box-shadow: 0px 0px 5px #ccc;
   position: relative;
 
   @media (max-width: 750px) {

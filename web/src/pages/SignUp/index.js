@@ -48,6 +48,11 @@ export default function SigUp() {
         return
       }
 
+      if(form.password.length < 6){
+        toast.error('A senha deve ter no minimo 6 caracteres')
+        return
+      }
+
       await api.post('/users', {
         name: form.name.trim(),
         email: form.email.trim(),

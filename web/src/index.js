@@ -9,12 +9,12 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <MyProvider>
-      <React.StrictMode>
-          <BrowserRouter>
-            <MainRoutes />
-            <GlobalStyle />
-            <ToastContainer 
+  <React.StrictMode>
+      <MyProvider>
+        <BrowserRouter>
+          <MainRoutes />
+          <GlobalStyle />
+          <ToastContainer 
               position="top-right"
               autoClose={5000}
               hideProgressBar={false}
@@ -25,9 +25,9 @@ root.render(
               draggable
               pauseOnHover
               theme="colored"
-            />
-          </BrowserRouter>
-      </React.StrictMode>
-    </MyProvider>
+          />
+        </BrowserRouter>
+      </MyProvider>
+  </React.StrictMode>
 );
 

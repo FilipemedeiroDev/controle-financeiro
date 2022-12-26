@@ -36,12 +36,24 @@ function useProvider() {
     }
   }
 
+  const addTransaction = (data) => {
+    setTransactions(prev => [...prev, data])
+  }
+
+  const deleteTransaction = (transactionId) => {
+    setTransactions(prev => prev.filter(transactions => transactions._id !== transactionId))
+  }
+
   return {
     showModalEdit,
     setShowModalEdit,
     getUser,
     user,
-    getTransactions
+    getTransactions,
+    transactions,
+    setTransactions,
+    addTransaction,
+    deleteTransaction
   } 
 }
 

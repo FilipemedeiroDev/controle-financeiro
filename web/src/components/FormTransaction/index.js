@@ -2,10 +2,12 @@ import * as C from './styles';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import createNumberMask from 'text-mask-addons/dist/createNumberMask';
+import useMyContext from '../../Hooks/useMyContext';
 
 import api from '../../services/api';
 
 export default function FormTransaction() {
+  const { addTransaction } = useMyContext()
   const [form, setForm] = useState({
     description: '',
     value: '',
@@ -35,19 +37,21 @@ export default function FormTransaction() {
 
     try {
 
-      const formattedValue = parseFloat(form.value.replace('R$', '').replace(',','.'));
-      
-      await api.post('/transactions', {
+      const formattedValue = parseFloat(form.value.replace('R$', '').replace('.', '').replace(',','.'));
+
+      const { data } = await api.post('/transactions', {
         description: form.description.trim(),
         value: formattedValue,
         type: form.type
       })
+      addTransaction(data)
 
       setForm({
         description: '',
         value: '',
         type: ''
       })
+      
       toast.success('transação cadastrada com sucesso')
     } catch (error) {
       console.log(error)

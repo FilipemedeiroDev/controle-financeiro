@@ -7,6 +7,7 @@ import useMyContext from '../../Hooks/useMyContext';
 import Header from '../../components/Header';
 import Resume from '../../components/Resume';
 import FormTransaction from '../../components/FormTransaction';
+import Table from '../../components/Table';
 
 function Main() {
   const { getUser, getTransactions } = useMyContext();
@@ -29,6 +30,7 @@ function Main() {
       <Header />
       <Resume />
       <FormTransaction />
+      <Table />
     </C.Container>
   );
 }

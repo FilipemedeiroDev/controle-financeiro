@@ -1,6 +1,9 @@
 import * as C from './styles';
 import { useState } from 'react';
-import createNumberMask from 'text-mask-addons/dist/createNumberMask'
+import { toast } from 'react-toastify';
+import createNumberMask from 'text-mask-addons/dist/createNumberMask';
+
+import api from '../../services/api';
 
 export default function FormTransaction() {
   const [form, setForm] = useState({
@@ -23,7 +26,34 @@ export default function FormTransaction() {
     setForm({...form, [e.target.name]: e.target.value})
   }
 
-  console.log(form)
+  async function handleSubmit(e) {
+    e.preventDefault();
+
+    if(!form.description || !form.value || !form.type) {
+      return toast.error('Preencha todos os campo para registrar uma nova transação')
+    }
+
+    try {
+
+      const formattedValue = parseFloat(form.value.replace('R$', '').replace(',','.'));
+      
+      await api.post('/transactions', {
+        description: form.description.trim(),
+        value: formattedValue,
+        type: form.type
+      })
+
+      setForm({
+        description: '',
+        value: '',
+        type: ''
+      })
+      toast.success('transação cadastrada com sucesso')
+    } catch (error) {
+      console.log(error)
+      return
+    }
+  }
 
   return (
     <C.ContentForm>
@@ -53,7 +83,11 @@ export default function FormTransaction() {
           <C.Option >Saída</C.Option>
         </C.Select>  
       </C.ContentSelect>
-      <C.Button>Adicionar</C.Button>
+      <C.Button 
+        onClick={handleSubmit}
+      >
+      Adicionar
+      </C.Button>
     </C.ContentForm>
   )
 }

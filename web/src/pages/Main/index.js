@@ -9,7 +9,7 @@ import Resume from '../../components/Resume';
 import FormTransaction from '../../components/FormTransaction';
 
 function Main() {
-  const { getUser } = useMyContext();
+  const { getUser, getTransactions } = useMyContext();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -20,6 +20,7 @@ function Main() {
     }
     
     getUser()
+    getTransactions()
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   

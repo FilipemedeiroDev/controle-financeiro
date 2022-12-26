@@ -31,7 +31,7 @@ class TransactionsController {
         return res.status(400).json({message: 'Não foi possível registrar essa transação.'})
       }
 
-      return res.status(201).json({message: 'Transação registrada com sucesso.'})
+      return res.status(200).json(transactionRegister)
     } catch (error) {
       return res.status(500).json({ message:  error.message});
     }
@@ -43,11 +43,19 @@ class TransactionsController {
     try {
       const transactions = await TransactionModel.find({user_id: userId});
 
-      if(transactions.length === 0) {
-        return res.status(400).json({message: 'Não há transações cadastradas.'})
-      }
-
       return res.status(200).json(transactions)
+    } catch (error) {
+      return res.status(500).json({ message:  error.message});
+    }
+  }
+
+  async Delete(req, res) {
+    const { id } = req.params;
+
+    try {
+     await TransactionModel.deleteOne({_id: id})
+     
+      return res.status(200).json({message: 'Transação excluida com sucesso'})
     } catch (error) {
       return res.status(500).json({ message:  error.message});
     }

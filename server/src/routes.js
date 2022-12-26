@@ -14,5 +14,6 @@ routes.get('/users/me', authentication, UsersController.GetUser);
 
 routes.get('/transactions',authentication, TransactionsController.List);
 routes.post('/transactions', authentication, TransactionsController.Register)
+routes.delete('/transactions/:id', authentication, TransactionsController.Delete)
 
 module.exports = routes;

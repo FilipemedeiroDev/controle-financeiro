@@ -5,7 +5,7 @@ import { getItem } from '../../utils/storage';
 import useMyContext from '../../Hooks/useMyContext';
 
 import Header from '../../components/Header';
-import Resume from '../../components/Resume';
+import Summary from '../../components/Summary';
 import FormTransaction from '../../components/FormTransaction';
 import Table from '../../components/Table';
 
@@ -29,7 +29,7 @@ function Main() {
   return (
     <C.Container>
       <Header />
-      <Resume />
+      <Summary />
       <FormTransaction />
       <Table />
     </C.Container>

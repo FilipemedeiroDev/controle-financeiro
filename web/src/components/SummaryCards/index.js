@@ -2,7 +2,7 @@ import * as C from './styles'
 
 import { BsArrowDownCircle, BsArrowUpCircle, BsCashCoin} from 'react-icons/bs';
 
-export default function ResumeCards({ type, value }) {
+export default function SummaryCards({ type, value }) {
   return (
     <C.Cards>
       <C.HeaderCard>

@@ -1,18 +1,20 @@
 import * as C from './styles';
-import { FaRegArrowAltCircleUp, FaRegArrowAltCircleDown, FaTrash } from "react-icons/fa";
+import { formatDate }  from '../../utils/dataFormat';
 import useMyContext from '../../Hooks/useMyContext';
+
+import { FaRegArrowAltCircleUp, FaRegArrowAltCircleDown, FaTrash } from "react-icons/fa";
 
 import api from '../../services/api';
 
 export default function Table() {
-  const { transactions, deleteTransaction } = useMyContext();
+  const { transactions, deleteTransaction, getSummaries } = useMyContext();
 
  function handleDelete(transactionId) {
     return async () => {
         try {
           await api.delete(`/transactions/${transactionId}`)
           deleteTransaction(transactionId)
-    
+          getSummaries()
         } catch (error) {
           console.log(error.message)
           return
@@ -24,8 +26,9 @@ export default function Table() {
     <C.Table>
       <C.Thead>
         <C.Tr>
-          <C.Th width={40}>Descrição</C.Th>
-          <C.Th width={40}>valor</C.Th>
+          <C.Th width={30}>Descrição</C.Th>
+          <C.Th width={30}>valor</C.Th>
+          <C.Th width={20}>data</C.Th>
           <C.Th width={10} alignCenter>tipo</C.Th>
           <C.Th width={10}>&nbsp;</C.Th>
         </C.Tr>
@@ -34,7 +37,8 @@ export default function Table() {
         {transactions.map((transaction) => (
           <C.Tr key={transaction._id}>
             <C.Td>{transaction.description}</C.Td>
-            <C.Td>{transaction.value}</C.Td>
+            <C.Td>{`R$ ${transaction.value % 2  === 0 ? transaction.value : transaction.value.toFixed(2).replace('.', ',')}`}</C.Td>
+            <C.Td width='100'>{formatDate(transaction.date)}</C.Td>
             <C.Td alignCenter>
               {transaction.type === 'Saída' ? (
               <FaRegArrowAltCircleDown color="red" />

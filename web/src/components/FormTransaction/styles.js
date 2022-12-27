@@ -13,6 +13,10 @@ export const ContentForm = styled.div`
   padding: 1rem 0.4rem;
   
   gap: 10px;
+
+  @media (max-width: 280px) {
+    gap: 6px;
+  }
 `;
 
 export const ContentInput = styled.div`
@@ -22,6 +26,14 @@ export const ContentInput = styled.div`
 
 export const Label = styled.label`
   font-weight: 600;
+
+  @media (max-width: 750px) {
+    font-size: 14px;
+  }
+
+  @media (max-width: 280px) {
+    font-size: 10px;
+  }
 `;
 
 export const Input = styled.input`
@@ -34,6 +46,10 @@ export const Money = styled(MaskedInput)`
   border: 1px solid gray;
   border-radius: 4px;
   padding: 4px;
+`;
+
+export const Date = styled(MaskedInput)`
+  
 `;
 
 export const ContentSelect = styled.div`

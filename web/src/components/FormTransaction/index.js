@@ -7,10 +7,11 @@ import useMyContext from '../../Hooks/useMyContext';
 import api from '../../services/api';
 
 export default function FormTransaction() {
-  const { addTransaction } = useMyContext()
+  const { addTransaction, getSummaries} = useMyContext()
   const [form, setForm] = useState({
     description: '',
     value: '',
+    date: '',
     type: '',
   })
   
@@ -31,7 +32,7 @@ export default function FormTransaction() {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    if(!form.description || !form.value || !form.type) {
+    if(!form.description || !form.value || !form.date || !form.type) {
       return toast.error('Preencha todos os campo para registrar uma nova transação')
     }
 
@@ -42,17 +43,19 @@ export default function FormTransaction() {
       const { data } = await api.post('/transactions', {
         description: form.description.trim(),
         value: formattedValue,
+        date: form.date,
         type: form.type
       })
-      addTransaction(data)
 
+      addTransaction(data)
+      getSummaries()
+     
       setForm({
         description: '',
         value: '',
+        date: '',
         type: ''
       })
-      
-      toast.success('transação cadastrada com sucesso')
     } catch (error) {
       console.log(error)
       return
@@ -61,7 +64,7 @@ export default function FormTransaction() {
 
   return (
     <C.ContentForm>
-      <C.ContentInput style={{width: '40%'}}>
+      <C.ContentInput style={{width: '30%'}}>
         <C.Label>Descrição</C.Label>
         <C.Input 
           type='text'
@@ -76,6 +79,15 @@ export default function FormTransaction() {
           mask={currencyMask} 
           name='value'
           value={form.value}
+          onChange={handleChangeInput}
+        />
+      </C.ContentInput>
+      <C.ContentInput style={{width: '10%'}}>
+        <C.Label>data</C.Label>
+        <C.Input 
+          type='date'
+          name='date'
+          value={form.date}
           onChange={handleChangeInput}
         />
       </C.ContentInput>

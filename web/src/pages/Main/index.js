@@ -10,7 +10,7 @@ import FormTransaction from '../../components/FormTransaction';
 import Table from '../../components/Table';
 
 function Main() {
-  const { getUser, getTransactions } = useMyContext();
+  const { getUser, getTransactions, getSummaries} = useMyContext();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -22,6 +22,7 @@ function Main() {
     
     getUser()
     getTransactions()
+    getSummaries()
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   

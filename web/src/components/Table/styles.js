@@ -30,6 +30,16 @@ export const Td = styled.td`
     width: 18px;
     height: 18px;
    }
+
+   @media (max-width: 750px) {
+      font-size: 14px;
+      width: ${(props) => (props.width ? props.width + "%" : "auto")};
+   }
+
+   @media (max-width: 280px) {
+      font-size: 14px;
+      width: ${(props) => (props.width ? props.width = '10%' : 'auto')}
+   }
 `;
 
 export const Tbody = styled.tbody``;

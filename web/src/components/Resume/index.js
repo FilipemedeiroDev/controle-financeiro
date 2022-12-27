@@ -1,21 +1,24 @@
 import * as C from './styles';
+import useMyContext from '../../Hooks/useMyContext';
 
 import ResumeCards from '../ResumeCards';
 
 export default function Resume() {
+  const {summaries} = useMyContext();
+
   return (
     <C.Container>
       <ResumeCards 
         type='Entradas'
-        value={1000}
+        value={summaries.totalEntries}
       />
       <ResumeCards 
         type='Saidas' 
-        value={450}    
+        value={summaries.totalExpenses}    
       />
       <ResumeCards 
         type='Total'
-        value={1000 - 450}   
+        value={summaries.amountTransactions}   
       />
     </C.Container>
   )

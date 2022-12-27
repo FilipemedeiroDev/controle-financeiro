@@ -12,7 +12,7 @@ export default function ResumeCards({ type, value }) {
         { type === 'Total' && <C.ContentIcons><BsCashCoin /></C.ContentIcons> } 
       </C.HeaderCard>
   
-      <C.Span>{`R$ ${value % 2  === 0 ? value : value.toFixed(2)}`}</C.Span>
+      <C.Span>{`R$ ${value}`}</C.Span>
     </C.Cards>
   )
 }

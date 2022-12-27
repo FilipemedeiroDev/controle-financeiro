@@ -7,6 +7,7 @@ import { clear } from '../utils/storage';
 function useProvider() {
   const [user, setUser] = useState({})
   const [transactions, setTransactions] = useState([])
+  const [summaries, setSummaries] = useState([])
   const [showModalEdit, setShowModalEdit] = useState(false);
 
   const getUser = async () => {
@@ -36,6 +37,18 @@ function useProvider() {
     }
   }
 
+  const getSummaries = async () => {
+    try {
+      const response = await api.get('/transactions/summaries')
+      const listSummaries = response.data;
+      setSummaries(listSummaries)
+    } catch (error) {
+      console.log(error.message)
+      return
+    }
+
+  }
+
   const addTransaction = (data) => {
     setTransactions(prev => [...prev, data])
   }
@@ -53,7 +66,9 @@ function useProvider() {
     transactions,
     setTransactions,
     addTransaction,
-    deleteTransaction
+    deleteTransaction,
+    getSummaries,
+    summaries,
   } 
 }
 

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { toast } from "react-toastify";
 
 import api from '../services/api';
 import { clear } from '../utils/storage';
@@ -20,7 +19,6 @@ function useProvider() {
       if(error.response.data.message === 'jwt expired') {
         clear()
         window.location.reload()
-        toast.error('Sessão expirada, faça o login novamente.')
       }
       return
     }
@@ -40,8 +38,8 @@ function useProvider() {
   const getSummaries = async () => {
     try {
       const response = await api.get('/transactions/summaries')
-      const listSummaries = response.data;
-      setSummaries(listSummaries)
+      const summaries = response.data;
+      setSummaries(summaries)
     } catch (error) {
       console.log(error.message)
       return

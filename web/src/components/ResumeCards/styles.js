@@ -23,7 +23,7 @@ export const HeaderCard = styled.div`
 
 export const Title = styled.h1`
   text-align: center;
-  font-size: 28px;
+  font-size: 22px;
 
   @media (max-width: 750px) {
       font-size: 100%;
@@ -36,7 +36,7 @@ export const ContentIcons = styled.div`
   margin-left: 12px;
 
   svg {
-    font-size: 28px;
+    font-size: 22px;
   }
 
   @media (max-width: 750px) {
@@ -50,7 +50,7 @@ export const ContentIcons = styled.div`
 
 export const Span = styled.span`
   font-weight: 700;
-  font-size: 28px;
+  font-size: 24px;
   text-align: center;
 
   margin-top: 10px;

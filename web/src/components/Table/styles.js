@@ -18,13 +18,13 @@ export const Th = styled.th`
    border-bottom: inset;
    padding-bottom: 5px;
    text-align: ${(props) => (props.alignCenter ? "center" : "start")};
-   width: ${(props) => (props.width ? props.width + "%" : "auto")};
 `;
 
 export const Td = styled.td`
    padding-top: 15px;
    text-align: ${(props) => (props.alignCenter ? "center" : "start")};
    word-break: break-all;
+   font-size: 14px;
 
    svg {
     width: 18px;
@@ -32,13 +32,11 @@ export const Td = styled.td`
    }
 
    @media (max-width: 750px) {
-      font-size: 14px;
-      width: ${(props) => (props.width ? props.width + "%" : "auto")};
+      font-size: 12px;
    }
 
    @media (max-width: 280px) {
-      font-size: 14px;
-      width: ${(props) => (props.width ? props.width = '10%' : 'auto')}
+      font-size: 10px;
    }
 `;
 

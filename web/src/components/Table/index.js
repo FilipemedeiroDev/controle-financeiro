@@ -26,11 +26,11 @@ export default function Table() {
     <C.Table>
       <C.Thead>
         <C.Tr>
-          <C.Th width={30}>Descrição</C.Th>
-          <C.Th width={30}>valor</C.Th>
-          <C.Th width={20}>data</C.Th>
-          <C.Th width={10} alignCenter>tipo</C.Th>
-          <C.Th width={10}>&nbsp;</C.Th>
+          <C.Th>Descrição</C.Th>
+          <C.Th>valor</C.Th>
+          <C.Th>data</C.Th>
+          <C.Th alignCenter>tipo</C.Th>
+          <C.Th>&nbsp;</C.Th>
         </C.Tr>
       </C.Thead>
       <C.Tbody>
@@ -38,7 +38,7 @@ export default function Table() {
           <C.Tr key={transaction._id}>
             <C.Td>{transaction.description}</C.Td>
             <C.Td>{`R$ ${transaction.value % 2  === 0 ? transaction.value : transaction.value.toFixed(2).replace('.', ',')}`}</C.Td>
-            <C.Td width='100'>{formatDate(transaction.date)}</C.Td>
+            <C.Td >{formatDate(transaction.date)}</C.Td>
             <C.Td alignCenter>
               {transaction.type === 'Saída' ? (
               <FaRegArrowAltCircleDown color="red" />

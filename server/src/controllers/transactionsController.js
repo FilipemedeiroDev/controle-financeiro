@@ -1,4 +1,4 @@
-
+const mongoose = require('mongoose');
 const TransactionModel = require('../models/transactionModel');
 
 class TransactionsController {
@@ -70,17 +70,40 @@ class TransactionsController {
     const {id: userId} = req.user;
 
     try {
-      const initialValue = 0
-      let entryValues = []
-      const entriesTransactions = await TransactionModel.find({user_id: userId, type: 'Entrada'})
-      entriesTransactions.map(transaction => entryValues.push(transaction.value))
-      const totalEntries = entryValues.reduce((acum, num) => {return acum += num}, initialValue);
-
-      let expensesValues = []
-      const expensesTransactions = await TransactionModel.find({user_id: userId, type: 'Saída'})
-      expensesTransactions.map(transaction => expensesValues.push(transaction.value))
-      const totalExpenses = expensesValues.reduce((acum, num) => {return acum += num}, initialValue);
-
+     const [summaryTransactions] = await TransactionModel.aggregate([
+        {
+          '$match': {
+            user_id: new mongoose.Types.ObjectId(userId)
+          }
+        },
+        {
+          '$group': {
+            '_id': '$type', 
+            'total': {
+              '$sum': '$value'
+            }
+          }
+        }, {
+          '$group': {
+            '_id': null, 
+            'data': {
+              '$push': {
+                'k': '$_id', 
+                'v': '$total'
+              }
+            }
+          }
+        }, {
+          '$replaceRoot': {
+            'newRoot': {
+              '$arrayToObject': '$data'
+            }
+          }
+        }
+      ])
+    
+      const totalEntries = summaryTransactions?.["Entrada"] ?? 0;
+      const totalExpenses = summaryTransactions?.["Saída"] ?? 0;
       const amountTransactions = totalEntries - totalExpenses;
 
       return res.status(200).json({

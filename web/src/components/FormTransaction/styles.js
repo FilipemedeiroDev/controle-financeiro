@@ -49,6 +49,8 @@ export const Input = styled.input`
   border: 1px solid gray;
   border-radius: 4px;
   padding: 4px;
+  width: ${(props) => (props.width ? props.width + '%': '100%')};
+
 `;
 
 export const Money = styled(MaskedInput)`

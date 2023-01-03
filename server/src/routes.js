@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const TransactionsController = require('./controllers/TransactionsController');
+const TransactionsController = require('./controllers/transactionsController');
 const UsersController = require('./controllers/UsersController');
 const authentication = require('./middlewares/auth')
 

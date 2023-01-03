@@ -64,7 +64,7 @@ export default function FormTransaction() {
 
   return (
     <C.ContentForm>
-      <C.ContentInput style={{width: '30%'}}>
+      <C.ContentInput width={30}>
         <C.Label>Descrição</C.Label>
         <C.Input 
           type='text'
@@ -73,7 +73,7 @@ export default function FormTransaction() {
           onChange={handleChangeInput}
         />
       </C.ContentInput>
-      <C.ContentInput style={{width: '20%'}}>
+      <C.ContentInput width={20}>
         <C.Label>Valor</C.Label>
         <C.Money
           mask={currencyMask} 
@@ -82,7 +82,7 @@ export default function FormTransaction() {
           onChange={handleChangeInput}
         />
       </C.ContentInput>
-      <C.ContentInput style={{width: '10%'}}>
+      <C.ContentInput width={10}>
         <C.Label>data</C.Label>
         <C.Input 
           type='date'
@@ -91,7 +91,7 @@ export default function FormTransaction() {
           onChange={handleChangeInput}
         />
       </C.ContentInput>
-      <C.ContentSelect>
+      <C.ContentSelect width={10}>
         <C.Label htmlFor='select'>Tipo</C.Label>
         <C.Select id='select' name='type' value={form.type} onChange={handleChangeInput}>
           <C.Option value='' disabled></C.Option>
@@ -100,6 +100,7 @@ export default function FormTransaction() {
         </C.Select>  
       </C.ContentSelect>
       <C.Button 
+        width={30}
         onClick={handleSubmit}
       >
       Adicionar

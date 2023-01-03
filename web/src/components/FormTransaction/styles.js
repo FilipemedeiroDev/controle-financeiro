@@ -14,6 +14,10 @@ export const ContentForm = styled.div`
   
   gap: 10px;
 
+  @media (max-width: 750px) {
+    flex-direction: column
+  }
+
   @media (max-width: 280px) {
     gap: 6px;
   }
@@ -22,6 +26,11 @@ export const ContentForm = styled.div`
 export const ContentInput = styled.div`
   display: flex;
   flex-direction: column;
+  width: ${(props) => (props.width ? props.width + '%': '100%')};
+
+  @media (max-width: 750px) {
+    width: 100%;
+  }
 `;
 
 export const Label = styled.label`
@@ -55,7 +64,11 @@ export const Date = styled(MaskedInput)`
 export const ContentSelect = styled.div`
   display: flex;
   flex-direction: column;
-  width: 10%;
+  width: ${(props) => (props.width ? props.width + '%': '100%')};
+
+  @media (max-width: 750px) {
+    width: 100%;
+  }
 `;
 
 export const Select = styled.select`
@@ -66,7 +79,7 @@ export const Select = styled.select`
 export const Option = styled.option``;
 
 export const Button = styled.button`
-  width: 30%;
+  width: ${(props) => (props.width ? props.width + '%': '100%')};
   height: 50px;
   border: none;
   border-radius: 8px;
@@ -85,6 +98,7 @@ export const Button = styled.button`
 
   @media (max-width: 750px) {
     font-size: 12px;
+    width: 100%;
   }
 
   @media (max-width: 280px) {

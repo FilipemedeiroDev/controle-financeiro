@@ -10,15 +10,15 @@ export default function Summary() {
     <C.Container>
       <SummaryCards 
         type='Entradas'
-        value={summaries.totalEntries}
+        value={summaries.totalEntries ? summaries.totalEntries : 0}
       />
       <SummaryCards 
         type='Saidas' 
-        value={summaries.totalExpenses}    
+        value={summaries.totalExpenses ? summaries.totalExpenses : 0}    
       />
       <SummaryCards 
         type='Total'
-        value={summaries.amountTransactions}   
+        value={summaries.amountTransactions ? summaries.amountTransactions : 0}   
       />
     </C.Container>
   )

@@ -13,13 +13,14 @@ import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { AiFillCloseCircle } from 'react-icons/ai'
 
 export default function ModalEditUser() {
-  const { user, setShowModalEdit, setIsLoading } = useMyContext();
+  const { user, setShowModalEdit} = useMyContext();
   const [showPassword, setShowPassword] = useState(false);
   const [form, setForm] = useState({
     name: user.name,
     email: user.email,
     newPassword: ''
   })
+  const [isLoading, setIsLoading] = useState(false)
 
   function handleCloseModal() {
     setShowModalEdit(false)
@@ -141,9 +142,12 @@ export default function ModalEditUser() {
           text='Salvar alterações'
           handle={handleSubmit}
         >
-          <Loading 
-            width={18}
-          />
+          {
+            isLoading &&
+            <Loading 
+              width={18}
+            />
+          }
         </Button>
       </C.Modal>
     </C.ModalContainer>

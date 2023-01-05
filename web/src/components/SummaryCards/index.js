@@ -12,7 +12,7 @@ export default function SummaryCards({ type, value }) {
         { type === 'Total' && <C.ContentIcons><BsCashCoin style={{color: 'green'}}/></C.ContentIcons> } 
       </C.HeaderCard>
   
-      <C.Span style={{ color: value < 0 ? 'red' : 'black'}}>{`R$ ${value}`}</C.Span>
+      <C.Span color={type === 'Total' && 'green'} value={value}>{`R$ ${value}`}</C.Span>
     </C.Cards>
   )
 }

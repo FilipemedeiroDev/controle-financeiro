@@ -18,7 +18,7 @@ export default function Summary() {
       />
       <SummaryCards 
         type='Total'
-        value={summaries.amountTransactions ? summaries.amountTransactions : 0}   
+        value={summaries.amountTransactions ? summaries.amountTransactions : 0}
       />
     </C.Container>
   )

@@ -52,7 +52,7 @@ export const Span = styled.span`
   font-weight: 700;
   font-size: 24px;
   text-align: center;
-
+  color: ${(props) => props.value < 0 ? 'red' : props.value === 0 ? 'black' : props.color};
   margin-top: 10px;
 
   @media (max-width: 750px) {

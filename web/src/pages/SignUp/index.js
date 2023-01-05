@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as C from './styles'
 import { toast } from 'react-toastify';
+import useMyContext from '../../Hooks/useMyContext';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
@@ -9,6 +10,7 @@ import Button from '../../components/Button';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 
 import api from '../../services/api';
+import Loading from '../../components/Loading';
 
 export default function SigUp() {
   const [showPassword, setShowPassword] = useState(false);
@@ -17,6 +19,8 @@ export default function SigUp() {
     email: '',
     password: ''
   })
+
+  const { setIsLoading } = useMyContext();
 
   const navigate = useNavigate();
 
@@ -31,24 +35,29 @@ export default function SigUp() {
  
   async function handleSubmit(e) {
     e.preventDefault();
+    setIsLoading(true)
 
     try {
       if(!form.name) {
+        setIsLoading(false)
         toast.error('Preencha o campo nome para continuar')
         return
       }
 
       if(!form.email) {
+        setIsLoading(false)
         toast.error('Preencha o campo e-mail para continuar')
         return
       }
 
       if(!form.password) {
+        setIsLoading(false)
         toast.error('Preencha o campo senha para continuar')
         return
       }
 
       if(form.password.length < 6){
+        setIsLoading(false)
         toast.error('A senha deve ter no minimo 6 caracteres')
         return
       }
@@ -61,7 +70,9 @@ export default function SigUp() {
 
       toast.success('Usuário cadastrado com sucesso!')
       navigate('/sign-in')
+      setIsLoading(false)
     } catch (error) {
+      setIsLoading(false)
       console.log(error)
       toast.error(error.response.data.message)
       return
@@ -134,7 +145,9 @@ export default function SigUp() {
           <Button 
             text='Cadastrar'
             handle={handleSubmit}
-          />
+          >
+            <Loading />
+          </Button>
           <C.Span>Já tem cadastro?<C.Link href='/sign-in'>Clique aqui!</C.Link></C.Span>
         </C.Form>
       </C.RightContent>

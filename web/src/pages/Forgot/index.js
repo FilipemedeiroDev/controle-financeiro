@@ -2,14 +2,18 @@ import * as C from './styles';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import useMyContext from '../../Hooks/useMyContext';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
+import Loading from '../../components/Loading';
 
 import api from '../../services/api';
 
 export default function Forgot() {
   const [form, setForm] = useState({email: ''});
+
+  const { setIsLoading } = useMyContext();
 
   const navigate = useNavigate();
 
@@ -19,9 +23,11 @@ export default function Forgot() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    setIsLoading(true);
 
     try {
       if(!form.email) {
+        setIsLoading(false)
         toast.error('Preencha o campo e-mail para continuar')
         return
       }
@@ -32,7 +38,9 @@ export default function Forgot() {
 
       toast.success('E-mail enviado com sucesso!')
       navigate('/sign-in')
+      setIsLoading(false)
     } catch (error) {
+      setIsLoading(false)
       console.log(error)
       toast.error(error.response.data.message)
       return
@@ -61,7 +69,9 @@ export default function Forgot() {
               marginTop: '20px'
             }}
             handle={handleSubmit}
-          />
+          >
+            <Loading />
+          </Button>
           <C.Link href='/sign-in'>Voltar para o login</C.Link>
         </C.Form>
       </C.Content>

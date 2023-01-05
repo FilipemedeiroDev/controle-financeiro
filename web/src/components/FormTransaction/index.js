@@ -4,10 +4,12 @@ import { toast } from 'react-toastify';
 import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 import useMyContext from '../../Hooks/useMyContext';
 
+import Loading from '../Loading';
+
 import api from '../../services/api';
 
 export default function FormTransaction() {
-  const { addTransaction, getSummaries} = useMyContext()
+  const { addTransaction, getSummaries , isLoading, setIsLoading} = useMyContext()
   const [form, setForm] = useState({
     description: '',
     value: '',
@@ -31,8 +33,10 @@ export default function FormTransaction() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    setIsLoading(true);
 
     if(!form.description || !form.value || !form.date || !form.type) {
+      setIsLoading(false)
       return toast.error('Preencha todos os campo para registrar uma nova transação')
     }
 
@@ -56,7 +60,9 @@ export default function FormTransaction() {
         date: '',
         type: ''
       })
+      setIsLoading(false)
     } catch (error) {
+      setIsLoading(false)
       console.log(error)
       return
     }
@@ -103,7 +109,7 @@ export default function FormTransaction() {
         width={30}
         onClick={handleSubmit}
       >
-      Adicionar
+      {isLoading ? <Loading /> : 'Adicionar'}
       </C.Button>
     </C.ContentForm>
   )

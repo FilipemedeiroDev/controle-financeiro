@@ -8,6 +8,7 @@ function useProvider() {
   const [transactions, setTransactions] = useState([])
   const [summaries, setSummaries] = useState([])
   const [showModalEdit, setShowModalEdit] = useState(false);
+  const [isLoading, setIsLoading] = useState(false)
 
   const getUser = async () => {
     try {
@@ -67,6 +68,8 @@ function useProvider() {
     deleteTransaction,
     getSummaries,
     summaries,
+    isLoading,
+    setIsLoading
   } 
 }
 

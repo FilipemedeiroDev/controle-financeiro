@@ -2,9 +2,11 @@ import * as C from './styles';
 import { useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import useMyContext from '../../Hooks/useMyContext';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
+import Loading from '../../components/Loading';
 
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 
@@ -18,6 +20,8 @@ export default function SigIn() {
     email: '',
     password: ''
   })
+
+  const { setIsLoading } = useMyContext()
 
   useEffect(() => {
     const token = getItem('token');
@@ -38,6 +42,7 @@ export default function SigIn() {
 
   async function handleSubmit(e) {
     e.preventDefault()
+    setIsLoading(true)
 
     if(!form.email) {
       toast.error('Preencha o campo email para continuar')
@@ -61,7 +66,9 @@ export default function SigIn() {
       setItem('name', user.nome)
 
       navigate('/');
+      setIsLoading(false)
     } catch (error) {
+      setIsLoading(false)
       console.log(error)
       toast.error(error.response.data.message)
       return
@@ -122,7 +129,9 @@ export default function SigIn() {
           <Button 
             text='Entrar'
             handle={handleSubmit}
-          />
+          >
+            <Loading />
+          </Button>
           <C.Span>Ainda não tem cadastro?<C.Link href='/sign-up'>Clique aqui!</C.Link></C.Span>
         </C.Form>
       </C.LeftContent>

@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 
 import Input from '../Input';
 import Button from '../Button';
+import Loading from '../Loading';
 
 import api from '../../services/api'
 
@@ -12,7 +13,7 @@ import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { AiFillCloseCircle } from 'react-icons/ai'
 
 export default function ModalEditUser() {
-  const { user, setShowModalEdit } = useMyContext();
+  const { user, setShowModalEdit, setIsLoading } = useMyContext();
   const [showPassword, setShowPassword] = useState(false);
   const [form, setForm] = useState({
     name: user.name,
@@ -34,11 +35,13 @@ export default function ModalEditUser() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    setIsLoading(true);
 
     try { 
       if(form.newPassword) {
         
         if(form.newPassword.length < 6) {
+          setIsLoading(false)
           toast.error('A senha deve ter no minimo 6 caracteres')
           return
         }
@@ -57,7 +60,9 @@ export default function ModalEditUser() {
       }
       
       setShowModalEdit(false)
+      setIsLoading(false)
     } catch (error) {
+      setIsLoading(false)
       console.log(error)
       return
     }
@@ -135,7 +140,11 @@ export default function ModalEditUser() {
         <Button 
           text='Salvar alterações'
           handle={handleSubmit}
-        />
+        >
+          <Loading 
+            width={18}
+          />
+        </Button>
       </C.Modal>
     </C.ModalContainer>
   )

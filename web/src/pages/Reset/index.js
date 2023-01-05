@@ -2,9 +2,11 @@ import * as C from './styles';
 import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import useMyContext from '../../Hooks/useMyContext';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
+import Loading from '../../components/Loading';
 
 import api from '../../services/api';
 
@@ -14,6 +16,7 @@ export default function Reset() {
   const [showPassword, setShowPassword] = useState(false);
   const [form, setForm] = useState({ password: ''});
 
+  const { setIsLoading } = useMyContext();
   const { token } = useParams();
   const navigate = useNavigate();
 
@@ -27,14 +30,17 @@ export default function Reset() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    setIsLoading(true);
 
     try {
       if(!form.password) {
+        setIsLoading(false)
         toast.error('Preencha o campo senha para continuar')
         return
       }
 
       if(form.password.length < 6){
+        setIsLoading(false)
         toast.error('A senha deve ter no minimo 6 caracteres')
         return
       }
@@ -44,7 +50,9 @@ export default function Reset() {
       })
 
       navigate('/sign-in')
+      setIsLoading(false)
     } catch (error) {
+      setIsLoading(false)
       console.log(error)
       toast.error(error.response.data.message)
       return
@@ -93,7 +101,9 @@ export default function Reset() {
             marginTop: '20px'
           }}
           handle={handleSubmit}
-        />
+        >
+          <Loading />
+        </Button>
       </C.Form>
     </C.Container>
   )

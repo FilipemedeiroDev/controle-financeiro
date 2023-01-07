@@ -45,11 +45,13 @@ export default function SigIn() {
     setIsLoading(true)
 
     if(!form.email) {
+      setIsLoading(false)
       toast.error('Preencha o campo email para continuar')
       return
     }
 
     if(!form.password) {
+      setIsLoading(false)
       toast.error('Preencha o campo senha para continuar')
       return
     }

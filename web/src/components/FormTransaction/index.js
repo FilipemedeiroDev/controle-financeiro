@@ -8,7 +8,10 @@ import Loading from '../Loading';
 
 import api from '../../services/api';
 
+import { IoIosArrowDown } from 'react-icons/io';
+
 export default function FormTransaction() {
+  const [showFormTransaction, setShowFormTransaction] = useState(true);
   const { addTransaction, getSummaries , isLoading, setIsLoading} = useMyContext()
   const [form, setForm] = useState({
     description: '',
@@ -70,7 +73,10 @@ export default function FormTransaction() {
 
   return (
     <C.ContentForm>
-      <C.ContentInput width={30}>
+      <C.ContentIcon>
+       <IoIosArrowDown  onClick={() => setShowFormTransaction(!showFormTransaction)}/>
+      </C.ContentIcon>
+      <C.ContentInput width={30} showFormTransaction={showFormTransaction}>
         <C.Label>Descrição</C.Label>
         <C.Input 
           type='text'
@@ -79,7 +85,7 @@ export default function FormTransaction() {
           onChange={handleChangeInput}
         />
       </C.ContentInput>
-      <C.ContentInput width={20}>
+      <C.ContentInput width={20} showFormTransaction={showFormTransaction}>
         <C.Label>Valor</C.Label>
         <C.Money
           mask={currencyMask} 
@@ -88,7 +94,7 @@ export default function FormTransaction() {
           onChange={handleChangeInput}
         />
       </C.ContentInput>
-      <C.ContentInput width={10}>
+      <C.ContentInput width={10} showFormTransaction={showFormTransaction}>
         <C.Label>data</C.Label>
         <C.Input 
           type='date'
@@ -97,7 +103,7 @@ export default function FormTransaction() {
           onChange={handleChangeInput}
         />
       </C.ContentInput>
-      <C.ContentSelect width={10}>
+      <C.ContentSelect width={10} showFormTransaction={showFormTransaction}>
         <C.Label htmlFor='select'>Tipo</C.Label>
         <C.Select id='select' name='type' value={form.type} onChange={handleChangeInput}>
           <C.Option value='' disabled></C.Option>
@@ -108,6 +114,7 @@ export default function FormTransaction() {
       <C.Button 
         width={30}
         onClick={handleSubmit}
+        showFormTransaction={showFormTransaction}
       >
       {isLoading ? <Loading /> : 'Adicionar'}
       </C.Button>

@@ -14,6 +14,8 @@ export const ContentForm = styled.div`
   
   gap: 10px;
 
+  position: relative;
+
   @media (max-width: 750px) {
     flex-direction: column
   }
@@ -21,15 +23,32 @@ export const ContentForm = styled.div`
   @media (max-width: 280px) {
     gap: 6px;
   }
+
+`;
+
+export const ContentIcon = styled.div`
+  position: absolute;
+  top: 4px;
+  right: 12px;
+  cursor: pointer;
+  display: none;
+
+  @media (max-width: 750px) {
+    display: flex;
+  }
 `;
 
 export const ContentInput = styled.div`
-  display: flex;
+  display:  ${(props) => (props.showFormTransaction === true ?  'flex': 'none')};
   flex-direction: column;
   width: ${(props) => (props.width ? props.width + '%': '100%')};
 
   @media (max-width: 750px) {
     width: 100%;
+  }
+
+  @media (min-width: 760px) {
+    display: flex;
   }
 `;
 
@@ -50,7 +69,7 @@ export const Input = styled.input`
   border-radius: 4px;
   padding: 4px;
   width: ${(props) => (props.width ? props.width + '%': '100%')};
-
+  
 `;
 
 export const Money = styled(MaskedInput)`
@@ -64,12 +83,16 @@ export const Date = styled(MaskedInput)`
 `;
 
 export const ContentSelect = styled.div`
-  display: flex;
+  display: ${(props) => (props.showFormTransaction === true ?  'flex': 'none')};
   flex-direction: column;
   width: ${(props) => (props.width ? props.width + '%': '100%')};
 
   @media (max-width: 750px) {
     width: 100%;
+  }
+
+  @media (min-width: 760px) {
+    display: flex;
   }
 `;
 
@@ -81,6 +104,7 @@ export const Select = styled.select`
 export const Option = styled.option``;
 
 export const Button = styled.button`
+  display: ${(props) => (props.showFormTransaction === true ?  'block': 'none')};
   width: ${(props) => (props.width ? props.width + '%': '100%')};
   height: 50px;
   border: none;
@@ -106,5 +130,9 @@ export const Button = styled.button`
   @media (max-width: 280px) {
     font-size: 10px;
     padding: 2px;
+  }
+
+  @media (min-width: 760px) {
+    display: block;
   }
 `;
